@@ -9,15 +9,13 @@ Analyze production data to understand issues impacting the manufacture of MechaC
 * Run t-tests to determine if the manufacturing lots are statistically different from the mean population
 * Design a statistical study to compare vehicle performance of the MechaCar vehicles against vehicles from other manufacturers. 
 
-For each statistical analysis, you’ll write a summary interpretation of the findings.
-
 ## Findings
 
 ### Linear Regression to Predict MPG
 
 The image below shows the output of the multiple linear regression of miles per gallon on vehicle_length, vehicle_weight, spoiler_angle, ground_clearance and AWD.
 
-![lm_summary](/images/lm_summary.PNG)
+![lm_summary](/images/lm_summary.png)
 
 Looking at the the p-values, vehicle_length and ground clearance make a significant contribution to the model. Their p-values being < .05 indicate they are unlikely to contribute random amounts of variance to the model. (In the language of the challenge question, vehicle length and ground clearance provide a non-random amount of variance to the mpg values in the dataset.)
 
@@ -27,7 +25,7 @@ The p-value of the intercept is 5.08e-08, indicating it explains a significant a
 
 The r-squared of .7149 means that the model explains about 71% of the variability in mpg, which is pretty good. But, a plot of residuals vs. fitted values (see below) is concerning. Some of the residuals are very large, some larger than 10 miles/gallon. Investigation of these data points is necessary to determine if they are outliers, or if something else is going on.
 
-![lm_residuals](/images/plot_residuals.PNG)
+![lm_residuals](/images/plot_residuals.png)
 
 In my opinion, the model does not do an effective job of predicting mpg for MechaCar prototypes. It needs some more work to determine whether the mpg can be predicted based on the independent variables available with an acceptable level of precision.
 
@@ -35,41 +33,41 @@ In my opinion, the model does not do an effective job of predicting mpg for Mech
 
 Below is an image with summmary statistics across all three lots. The design specification dictates the variance of the coils not exceed 100 psi. 
 
-![coils_summary_all_lots](/images/coils_summary_all_lots.PNG)
+![coils_summary_all_lots](/images/coils_summary_all_lots.png)
 
 Box plots comparing the lots show that lot 3 has a wildly greater spread compared to the other two lots, indicating there is a problem with lot 3.
 
-![coils_box_plots](/images/coils_box_plots.PNG)
+![coils_box_plots](/images/coils_box_plots.png)
 
 The design specifications dictate the variance of the suspension coils must not exceed 100 psi. A single test of variance can be performed using the chi-square distribution. The null hypothesis is that the sample variance is less than or equal to 100 psi. The alternative hypothesis is that the sample variane is greater than 100 psi. The test statistic is X^2 = (n-1) * sample variance / the target variance of 100 psi.
 
 Looking at all 3 lots together, the test-statistic is 92.8174, p-value=.9999. We cannot reject the null hypothesis that the variance is less than or equal to 100. 
 
-![variance_test_all_lots](/images/chi_sq_all_lots.PNG)
+![variance_test_all_lots](/images/chi_sq_all_lots.png)
 
 However, looking at each lot separately reveals the problem. Lots 1 and 2 are consistent with sample variance less than or equal to 100. 
 
-![variance_test_lot_1](/images/chi_sq_lot_1.PNG)
+![variance_test_lot_1](/images/chi_sq_lot_1.png)
 
-![variance_test_lot_2](/images/chi_sq_lot_2.PNG)
+![variance_test_lot_2](/images/chi_sq_lot_2.png)
 
 Lot 3, however has a sample variance of 
 
-![variance_test_lot_3](/images/chi_sq_lot_3.PNG)
+![variance_test_lot_3](/images/chi_sq_lot_3.png)
 
 ## T-Tests on Suspension Coils
 
 The image below shows the results of a t-test evaluating whether the mean value of psi across all three lots equals the population mean of 1,500 psi. The sample mean is 1498.78. The t-statistic for the test of the null hypothesis that the sample mean = 1,500 psi is -1.8931, with p-value = 0.06028. This is just over the .05 threshold, we we cannot reject the hypothesis that the sample mean is not statistically different from 1,500 psi.
 
-![coils_one_sample_ttest](/images/coils_one_sample.PNG)
+![coils_one_sample_ttest](/images/coils_one_sample.png)
 
 The following images show the same test of the null hypothesis for each of the three lots separately. Lots 1 and 2 have the same result: cannot reject the null hypothesis that the sample mean is not statisticakky significantly different from 1,500 psi. Lot 3 however, has a p-value of .04168, meaning we can reject the null hytothesis and conclude that the sample mean is statistically significantly different from 1,500 psi.
 
-![coils_ttest_lot_1](/images/coils_ttest_lot_1.PNG)
+![coils_ttest_lot_1](/images/coils_ttest_lot_1.png)
 
-![coils_ttest_lot_2](/images/coils_ttest_lot_2.PNG)
+![coils_ttest_lot_2](/images/coils_ttest_lot_2.png)
 
-![coils_ttest_lot_3](/images/coils_ttest_lot_3.PNG)
+![coils_ttest_lot_3](/images/coils_ttest_lot_3.png)
 
 Again, evidence indicates there is an issue with lot 3.
 
