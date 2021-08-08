@@ -1,0 +1,79 @@
+library(dbplyr)
+library(tidyverse)
+# MPG Analysis
+car_df <- read.csv("MechaCar_mpg.csv", check.names=F,stringsAsFactors=F)
+# Multiple Linear Regression, dep var: mpg, indep vars: vehicle_length vehicle_weight spoiler_angle ground_clearance AWD
+lm(mpg ~ vehicle_length + vehicle_weight+ spoiler_angle + ground_clearance + AWD, data=car_df)
+summary(lm(mpg ~ vehicle_length + vehicle_weight+ spoiler_angle + ground_clearance + AWD, data=car_df))
+
+# Plot residuals vs. predicted values:
+model <- lm(mpg ~ vehicle_length + vehicle_weight+ spoiler_angle + ground_clearance + AWD, data=car_df)
+plt <- ggplot(model,aes(x=model$fitted.values,y=model$residuals))
+plt + geom_point()
+
+# Coil Analysis
+coil_df <- read.csv("Suspension_Coil.csv", check.names=F,stringsAsFactors=F)
+coil_tbl <- as_tibble(coil_df)
+total_summary_df <- coil_tbl %>% summarize(Mean_PSI=mean(PSI), median_PSI=median(PSI), var_PSI=sd(PSI)^2, sd_PSI=sd(PSI))
+
+lot_summary <- coil_tbl %>% group_by(Manufacturing_Lot) %>% summarize(Mean_PSI=mean(PSI), median_PSI=median(PSI), var_PSI=sd(PSI)^2, sd_PSI=sd(PSI))
+
+# Chi-Square test of variance - all lots:
+chi_sq <- (nrow(coil_df) - 1) * total_summary_df$var_PSI / 100
+chi_sq
+p_value <- pchisq(chi_sq, nrow(coil_df)-1,lower.tail=FALSE)
+p_value
+
+# Chi-Square test of variance - by lots:
+subset(coil_df, Manufacturing_Lot == "Lot1",select=PSI)
+nrow1 <- nrow(subset(coil_df, Manufacturing_Lot == "Lot1",select=PSI))
+nrow1
+subset(lot_summary, Manufacturing_Lot == "Lot1")$var_PSI
+chi_sq_lot_1 <- (nrow1 - 1) * subset(lot_summary, Manufacturing_Lot == "Lot1")$var_PSI / 100
+chi_sq_lot_1
+p_value_lot_1 <- pchisq(chi_sq_lot_1, nrow1-1,lower.tail=FALSE)
+p_value_lot_1
+nrow2 <- nrow(subset(coil_df, Manufacturing_Lot == "Lot2",select=PSI))
+nrow2
+subset(lot_summary, Manufacturing_Lot == "Lot2")$var_PSI
+chi_sq_lot_2 <- (nrow2 - 1) * subset(lot_summary, Manufacturing_Lot == "Lot2")$var_PSI / 100
+chi_sq_lot_2
+p_value_lot_2 <- pchisq(chi_sq_lot_2, nrow2-1,lower.tail=FALSE)
+p_value_lot_2
+nrow3 <- nrow(subset(coil_df, Manufacturing_Lot == "Lot3",select=PSI))
+nrow3
+subset(lot_summary, Manufacturing_Lot == "Lot3")$var_PSI
+chi_sq_lot_3 <- (nrow3 - 1) * subset(lot_summary, Manufacturing_Lot == "Lot3")$var_PSI / 100
+chi_sq_lot_3
+p_value_lot_3 <- pchisq(chi_sq_lot_3, nrow3-1,lower.tail=FALSE)
+p_value_lot_3
+
+# PSI t-test
+# one sample t-test, 2 sided
+t.test((coil_df$PSI),mu=1500) #compare sample versus population means
+
+# Repeat for each lot using subset function
+t.test(subset(coil_df, Manufacturing_Lot == "Lot1", select=PSI), mu=1500) 
+t.test(subset(coil_df, Manufacturing_Lot == "Lot2", select=PSI), mu=1500) 
+t.test(subset(coil_df, Manufacturing_Lot == "Lot3", select=PSI), mu=1500) 
+
+# boxplots for coil psi
+plt <- ggplot(coil_tbl,aes(x=Manufacturing_Lot,y=PSI))
+plt + geom_boxplot()
+
+# multiple linear regression - plots
+
+plt <- ggplot(car_df,aes(x=vehicle_length, y=mpg))
+plt + geom_point()
+
+plt <- ggplot(car_df,aes(x=vehicle_weight, y=mpg))
+plt + geom_point()
+
+plt <- ggplot(car_df,aes(x=spoiler_angle, y=mpg))
+plt + geom_point()
+
+plt <- ggplot(car_df,aes(x=ground_clearance, y=mpg))
+plt + geom_point()
+
+plt <- ggplot(car_df,aes(x=AWD, y=mpg))
+plt + geom_point()
