@@ -31,9 +31,11 @@ In my opinion, the model does not do an effective job of predicting mpg for Mech
 
 ## Summary Statistics on Suspension Coils
 
-Below is an image with summmary statistics across all three lots. The design specification dictates the variance of the coils not exceed 100 psi. 
+Below is an image with summmary statistics across all three lots amd the three lots separately. The design specification dictates the variance of the coils not exceed 100 psi. 
 
 ![coils_summary_all_lots](/images/coils_summary_all_lots.png)
+
+![coils_summary_all_lots](/images/coils_summary_lots.png)
 
 Box plots comparing the lots show that lot 3 has a wildly greater spread compared to the other two lots, indicating there is a problem with lot 3.
 
