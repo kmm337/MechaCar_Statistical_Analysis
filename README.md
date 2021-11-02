@@ -19,7 +19,7 @@ The image below shows the output of the multiple linear regression of miles per 
 
 Looking at the the p-values, vehicle_length and ground clearance make a significant contribution to the model. Their p-values being < .05 indicate they are unlikely to contribute random amounts of variance to the model. (In the language of the challenge question, vehicle length and ground clearance provide a non-random amount of variance to the mpg values in the dataset.)
 
-The concept of slope in multiple linear regression can be thought of as the coefficient of each independent variable in the model. The p-values of the coefficients are used to determine whether the coefficients (the slope) are equal to zero. In this model, vehicle_length and ground clearance are statistically significently difference from zero at the .05 level. The remaining independent variables have Pr(|t|) > .05, meaning we cannot reject the hypothesis that the slope is zero.
+The concept of slope in multiple linear regression can be thought of as the coefficient of each independent variable in the model. The p-values of the coefficients are used to determine whether the coefficients (the slope) are equal to zero. In this model, vehicle_length and ground clearance are statistically significently different from zero at the .05 level. The remaining independent variables have Pr(|t|) > .05, meaning we cannot reject the hypothesis that the slope is zero.
 
 The p-value of the intercept is 5.08e-08, indicating it explains a significant amount of variability of mpg when the independent variables are zero. The estimate of the intercept is -1.040e+02 = -104, which sounds unreasonable, suggesting some dependent variables may need to be scaled differently or transformed.
 
