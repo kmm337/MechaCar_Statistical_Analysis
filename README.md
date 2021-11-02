@@ -1,4 +1,4 @@
-# MechaCar_Statistical_Analysis
+# Statistical Testing in R
 
 ## Overview
 
